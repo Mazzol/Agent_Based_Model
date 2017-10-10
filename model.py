@@ -24,7 +24,7 @@ f.close()                           #always close the worksheet
          
 #Parametise the models 
 num_of_agents = 10                 #controls how many agents we have
-num_of_iterations = 100            #changes agent cordinates an arbitrary number of times
+num_of_iterations = 5            #changes agent cordinates an arbitrary number of times
 neighbourhood = 5                  #guides who agents share resources with
 
 #Make agents
@@ -79,8 +79,11 @@ def update(frame_work):
         matplotlib.pyplot.scatter(agents[item].x,agents[item].y)       
     matplotlib.pyplot.imshow(environment)
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1)
-
 fig.show()
+
+#transform animatiion into a video
+#to play independent of the code and so attach to a webpage
+animation.save('ABM_animation.mp4', fps=30)
 
 
 #End---------------------------------------------------------------------
