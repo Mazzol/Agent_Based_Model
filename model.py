@@ -1,4 +1,4 @@
-#MODEL-------------------------------------------------------------------------
+#MODEL-------------------------------------------------------------------------------------------------------------------------------
 
 import random
 import matplotlib.pyplot
@@ -52,7 +52,7 @@ f2.write(str(stored) + "\n")
 f2.close()
     
 
-#plot graph of initial position of eah agent
+#plot graph of initial positions of each agent
 matplotlib.pyplot.xlim(0, len(environment[0]))
 matplotlib.pyplot.ylim(0, len(environment))
 matplotlib.pyplot.imshow(environment)
@@ -73,7 +73,7 @@ f3.close
 fig = matplotlib.pyplot.figure(figsize=(7, 7))
 ax = fig.add_axes([0, 0, 1, 1])
 
-
+#stopping condition is triggeres by class update
 def update(frame_work):
     fig.clear()    
     global carry_on
@@ -105,5 +105,5 @@ fig.show()
 #So as to play independent of the code 
 #this works without error when the code is left to run in an infinite loop i.e. without the stopping condition
 
-#End---------------------------------------------------------------------
+#End----------------------------------------------------------------------------------------------------------------------------
 
