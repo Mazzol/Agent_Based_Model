@@ -1,10 +1,24 @@
+"""Agent Based Model
+
+This model provides the building block for an interactive agent environment.
+The agents have been built to interact with each other - eating, storing, sharing and moving around
+The generated animation illustrates this interaction
+
+Code was developed through practicals delivered by Andrew Evans of LIDA, in fulfilment of
+GEOG5995: Programming for Social Scientist: Core Skills
+
+References:
+http://www.geog.leeds.ac.uk/courses/computing/study/core-python-phd/
+"""
 #MODEL-------------------------------------------------------------------------------------------------------------------------------
 
+#Required Python Packages
 import random
 import matplotlib.pyplot
 import matplotlib.animation
 import agentframework
 import csv
+
 
 #Parametise the model
 num_of_agents = 10                 #controls how many agents we have
@@ -15,7 +29,7 @@ carry_on = True                    #used in stopping the agent movement
 environment = []                    #create an empty list to read file in
 
               
-#filling the list:enviroment using data from a text file              
+#Filling the list to form the enviroment using data from a in.txt file              
 f = open('in.txt', newline='')      #read the text a line at a time
 dataset = csv.reader(f, quoting=csv.QUOTE_NONNUMERIC) #convert to numbers
 
@@ -26,14 +40,13 @@ for row in dataset:				     #reading in the rows a row at a time
     environment.append(rowlist)
     
 f.close()                           #always close the worksheet 
-
                
 #Make agents
 for i in range(num_of_agents):  #create a set of agents
     agents.append(agentframework.Agent(environment, agents))
-    
+  
 
-#move, eat and share points with neighbours
+#Move, eat and share points with neighbours
 #the agent movement is random
 for j in range(num_of_iterations):    
     random.shuffle(agents)        #shuffles each agent list at each iteration
@@ -42,17 +55,19 @@ for j in range(num_of_iterations):
         agents[item].eat()
         agents[item].share_with_neighbours(neighbourhood)
 
-#what is the total amount stored by an agent?
+        
+#What is the total amount stored by an agent?
 stored = 0
 for agent in agents:
     stored += agent.store
-#writing to a file
+    
+#writing to a file total stored at each iteration
 f2 = open('sum_of_stored.csv', 'a', newline='')
 f2.write(str(stored) + "\n")
 f2.close()
     
 
-#plot graph of initial positions of each agent
+#Plot graph of initial positions of each agent
 matplotlib.pyplot.xlim(0, len(environment[0]))
 matplotlib.pyplot.ylim(0, len(environment))
 matplotlib.pyplot.imshow(environment)
@@ -60,7 +75,8 @@ for agent in range(num_of_agents):
         matplotlib.pyplot.scatter(agents[agent].x,agents[agent].y)  
 matplotlib.pyplot.show()
 
-#write the new enviroment to a file
+
+#Write the changed enviroment to a file
 f3 = open('env.csv', 'w', newline='') 
 writer = csv.writer(f3, delimiter=' ')
 for row in environment:		
@@ -89,9 +105,9 @@ def update(frame_work):
         matplotlib.pyplot.scatter(agents[item].x,agents[item].y)       
     matplotlib.pyplot.imshow(environment)
     
-def gen_function(b = [0]):
+def gen_function(b = [0]): #determines number of iteration shown
     a = 0
-    global carry_on #Not actually needed as we're not assigning, but clearer
+    global carry_on 
     while (a < 10) & (carry_on) :
         yield a			# Returns control and waits next call.
         a = a + 1
@@ -101,7 +117,7 @@ animation = matplotlib.animation.FuncAnimation(fig, update, frames=gen_function,
 fig.show()
 
 #To transform animation into a video, use next line of code 
-#animation.save('ABM_animation.mp4', fps=30)
+animation.save('ABM_animation.mp4', fps=30)
 #So as to play independent of the code 
 #this works without error when the code is left to run in an infinite loop i.e. without the stopping condition
 
