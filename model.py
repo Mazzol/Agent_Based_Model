@@ -117,7 +117,7 @@ animation = matplotlib.animation.FuncAnimation(fig, update, frames=gen_function,
 fig.show()
 
 #To transform animation into a video, use next line of code 
-animation.save('ABM_animation.mp4', fps=30)
+#animation.save('ABM_animation.mp4', fps=30)
 #So as to play independent of the code 
 #this works without error when the code is left to run in an infinite loop i.e. without the stopping condition
 
